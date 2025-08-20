@@ -8,7 +8,8 @@ app.use(express.json());
 //  Global middleware for API key auth
 app.use(apiKeyAuth);
 
-app.use("/", require("./Routes/Routers"));
+app.use("/", require("./Routes/ClientRouters"));
+app.use("/", require("./Routes/AdminRouters"));
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);

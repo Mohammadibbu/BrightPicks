@@ -1,32 +1,37 @@
-const db = require("../Database/DBconn");
+const db = require("../../Database/DBconn");
 
 const brightpickschannels = async (req, res) => {
-  const { search, language, level, rating } = req.query;
+  const { Text, language, level, rating, category } = req.query;
   const database = await db.connectToDatabase();
   if (!database) {
-    return res.status(500).json({ message: "Database connection failed" });
+    return res
+      .status(500)
+      .json({ message: "Database connection failed", Status: "$ERROR" });
   }
 
-  if (search) {
+  if (Text) {
     // Handle search query
     try {
       const channels = await database
         .collection("channels")
-        .find({ name: { $regex: search, $options: "i" } })
+        .find({ name: { $regex: Text, $options: "i" } })
         .toArray();
       if (!channels || channels.length === 0) {
         return res
           .status(404)
-          .json({ message: "No Result found", query: search });
+          .json({ message: "No Result found", query: Text, Status: "$ERROR" });
       }
       return res.status(200).json({
         data: channels,
         message: "Data fetched successfully",
-        query: search,
+        query: Text,
+        Status: "$SUCCESS",
       });
     } catch (error) {
       console.error("Error fetching channels by search:", error);
-      return res.status(500).json({ message: "Internal Server Error" });
+      return res
+        .status(500)
+        .json({ message: "Internal Server Error", Status: "$ERROR" });
     }
   }
 
@@ -38,18 +43,23 @@ const brightpickschannels = async (req, res) => {
         .find({ language: language })
         .toArray();
       if (!channels || channels.length === 0) {
-        return res
-          .status(404)
-          .json({ message: "No Result found", query: language });
+        return res.status(404).json({
+          message: "No Result found",
+          query: language,
+          Status: "$ERROR",
+        });
       }
       return res.status(200).json({
         data: channels,
         message: "Data fetched successfully",
         query: language,
+        Status: "$SUCCESS",
       });
     } catch (error) {
       console.error("Error fetching channels by language:", error);
-      return res.status(500).json({ message: "Internal Server Error" });
+      return res
+        .status(500)
+        .json({ message: "Internal Server Error", Status: "$ERROR" });
     }
   }
 
@@ -63,7 +73,7 @@ const brightpickschannels = async (req, res) => {
       if (!channels || channels.length === 0) {
         return res
           .status(404)
-          .json({ message: "No Result found", query: level });
+          .json({ message: "No Result found", query: level, Status: "$ERROR" });
       }
       return res.status(200).json({
         data: channels,
@@ -72,27 +82,57 @@ const brightpickschannels = async (req, res) => {
       });
     } catch (error) {
       console.error("Error fetching channels by level:", error);
-      return res.status(500).json({ message: "Internal Server Error" });
+      return res
+        .status(500)
+        .json({ message: "Internal Server Error", Status: "$ERROR" });
     }
   }
-
-  //   if (rating) {
-  //     return res.send(`Channels with rating: ${rating}`);
-  //   }
+  if (category) {
+    // Handle category query
+    try {
+      const channels = await database
+        .collection("channels")
+        .find({ category: category })
+        .toArray();
+      if (!channels || channels.length === 0) {
+        return res.status(404).json({
+          message: "No Result found",
+          query: category,
+          Status: "$ERROR",
+        });
+      }
+      return res.status(200).json({
+        data: channels,
+        message: "Data fetched successfully",
+        query: category,
+        Status: "$SUCCESS",
+      });
+    } catch (error) {
+      console.error("Error fetching channels by category:", error);
+      return res
+        .status(500)
+        .json({ message: "Internal Server Error", Status: "$ERROR" });
+    }
+  }
 
   // If no specific query parameters are provided, return all channels
   try {
     const channels = await database.collection("channels").find({}).toArray();
     if (!channels || channels.length === 0) {
-      return res.status(404).json({ message: "No Result found" });
+      return res
+        .status(404)
+        .json({ message: "No Result found", Status: "$ERROR" });
     }
     res.status(200).json({
       data: channels,
       message: "Data fetched successfully",
+      Status: "$SUCCESS",
     });
   } catch (error) {
     console.error("Error fetching categories:", error);
-    res.status(500).json({ message: "Internal Server Error" });
+    res
+      .status(500)
+      .json({ message: "Internal Server Error", Status: "$ERROR" });
   }
 };
 module.exports = brightpickschannels;
