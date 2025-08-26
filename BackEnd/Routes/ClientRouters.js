@@ -1,7 +1,7 @@
-const express = require("express");
-const router = express.Router();
-const brightPicksCategories = require("../Controllers/ClientControllers/BrightpicksCatagories");
-const brightPicksChannels = require("../Controllers/ClientControllers/BrightPicksChannels");
+import { Router } from "express";
+const router = Router();
+import brightPicksCategories from "../Controllers/ClientControllers/BrightpicksCatagories.js";
+import brightPicksChannels from "../Controllers/ClientControllers/BrightPicksChannels.js";
 
 // ----------------------------GET METHODS----------------------------
 
@@ -30,4 +30,4 @@ router.get("/brightpicks/channels/:rating", brightPicksChannels);
 
 // ----------------------------DELETE METHODS-----------------------------
 
-module.exports = router;
+export default router;

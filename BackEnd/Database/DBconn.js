@@ -1,6 +1,6 @@
-const MongoDB = require("mongodb");
+import { MongoClient as _MongoClient } from "mongodb";
 
-const MongoClient = MongoDB.MongoClient;
+const MongoClient = _MongoClient;
 
 const DB_URL = "mongodb://localhost:27017";
 const DB_NAME = "BrightPicks";
@@ -27,4 +27,4 @@ async function closeConnection() {
   }
 }
 
-module.exports = { connectToDatabase, closeConnection };
+export { connectToDatabase, closeConnection };

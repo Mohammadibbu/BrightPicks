@@ -1,18 +1,18 @@
-const express = require("express");
-const router = express.Router();
+import { Router } from "express";
+const router = Router();
 
-const AdminLogin = require("../Controllers/AdminControllers/AdminLogin");
-const {
+import AdminLogin from "../Controllers/AdminControllers/AdminLogin.js";
+import {
   AddChannels,
   EditChannel,
   DeleteChannel,
-} = require("../Controllers/AdminControllers/AdminChannelControllers");
+} from "../Controllers/AdminControllers/AdminChannelControllers.js";
 
-const {
+import {
   AddCategory,
   EditCategory,
   DeleteCategory,
-} = require("../Controllers/AdminControllers/AdminCatagoriesController");
+} from "../Controllers/AdminControllers/AdminCatagoriesController.js";
 // ----------------------------GET METHODS----------------------------
 
 //-----------------------------POST METHODS----------------------------
@@ -41,4 +41,4 @@ router.delete("/brightpicks/admin/channel/d/:channelId", DeleteChannel);
 // Delete a category
 router.delete("/brightpicks/admin/category/d/:categoryId", DeleteCategory);
 
-module.exports = router;
+export default router;

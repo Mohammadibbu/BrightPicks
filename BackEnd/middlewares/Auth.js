@@ -1,5 +1,6 @@
 // middleware/apiKeyAuth.js
-require("dotenv").config({ quiet: true });
+import dotenv from "dotenv";
+dotenv.config({ quiet: true });
 
 function apiKeyAuth(req, res, next) {
   const userKey = req.header("x-api-key");
@@ -15,4 +16,4 @@ function apiKeyAuth(req, res, next) {
   next(); // Continue to route
 }
 
-module.exports = apiKeyAuth;
+export default apiKeyAuth;

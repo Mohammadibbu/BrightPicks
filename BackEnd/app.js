@@ -1,15 +1,19 @@
-const express = require("express");
+import express, { json } from "express";
 const app = express();
+import cors from "cors";
 const port = process.env.PORT || 5500;
-const apiKeyAuth = require("./middlewares/Auth");
+import apiKeyAuth from "./middlewares/Auth.js";
+import clientRouters from "./Routes/ClientRouters.js";
+import adminRouters from "./Routes/AdminRouters.js";
 
-app.use(express.json());
+app.use(cors());
+app.use(json());
 
 //  Global middleware for API key auth
 app.use(apiKeyAuth);
 
-app.use("/", require("./Routes/ClientRouters"));
-app.use("/", require("./Routes/AdminRouters"));
+app.use("/", clientRouters);
+app.use("/", adminRouters);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);

@@ -1,14 +1,15 @@
-const db = require("../../Database/DBconn");
+import { connectToDatabase } from "../../Database/DBconn.js";
 
 const brightpickscatagories = async (req, res) => {
   try {
-    const database = await db.connectToDatabase();
+    const database = await connectToDatabase();
     console.log("Connected to database successfully");
 
     const categories = await database
       .collection("categories")
       .find({})
       .toArray();
+
     if (!categories || categories.length === 0) {
       return res
         .status(404)
@@ -26,4 +27,4 @@ const brightpickscatagories = async (req, res) => {
       .json({ message: "Internal Server Error", Status: "$ERROR" });
   }
 };
-module.exports = brightpickscatagories;
+export default brightpickscatagories;

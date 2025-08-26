@@ -1,4 +1,4 @@
-const db = require("../../Database/DBconn");
+import { connectToDatabase } from "../../Database/DBconn.js";
 
 const AdminLogin = async (req, res) => {
   try {
@@ -11,7 +11,7 @@ const AdminLogin = async (req, res) => {
       });
     }
 
-    const database = await db.connectToDatabase();
+    const database = await connectToDatabase();
 
     const admin = await database
       .collection("Admin_Credentials")
@@ -39,4 +39,4 @@ const AdminLogin = async (req, res) => {
   }
 };
 
-module.exports = AdminLogin;
+export default AdminLogin;

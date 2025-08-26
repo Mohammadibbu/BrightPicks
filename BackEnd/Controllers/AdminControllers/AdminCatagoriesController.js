@@ -1,5 +1,5 @@
-const db = require("../../Database/DBconn");
-const { ObjectId } = require("mongodb");
+import { connectToDatabase } from "../../Database/DBconn.js";
+import { ObjectId } from "mongodb";
 
 // Function to add a new category
 const AddCategory = async (req, res) => {
@@ -14,7 +14,7 @@ const AddCategory = async (req, res) => {
       });
     }
 
-    const database = await db.connectToDatabase();
+    const database = await connectToDatabase();
 
     // Check if a category with the same name already exists
     const existingCategory = await database
@@ -79,7 +79,7 @@ const EditCategory = async (req, res) => {
       });
     }
 
-    const database = await db.connectToDatabase();
+    const database = await connectToDatabase();
     // Check if the category exists
     const existingCategory = await database
       .collection("categories")
@@ -134,7 +134,7 @@ const DeleteCategory = async (req, res) => {
         Status: "$ERROR",
       });
     }
-    const database = await db.connectToDatabase();
+    const database = await connectToDatabase();
     // Check if the category exists
     const existingCategory = await database
       .collection("categories")
@@ -168,8 +168,4 @@ const DeleteCategory = async (req, res) => {
   }
 };
 
-module.exports = {
-  AddCategory,
-  EditCategory,
-  DeleteCategory,
-};
+export { AddCategory, EditCategory, DeleteCategory };

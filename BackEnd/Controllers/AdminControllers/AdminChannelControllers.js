@@ -1,5 +1,5 @@
-const db = require("../../Database/DBconn");
-const { ObjectId } = require("mongodb");
+import { connectToDatabase } from "../../Database/DBconn.js";
+import { ObjectId } from "mongodb";
 
 //Add Channel
 
@@ -25,7 +25,7 @@ const AddChannels = async (req, res) => {
       });
     }
 
-    const database = await db.connectToDatabase();
+    const database = await connectToDatabase();
 
     // Check if a channel with the same youtubeUrl already exists
     const existingChannel = await database
@@ -97,7 +97,7 @@ const EditChannel = async (req, res) => {
         .json({ message: "Invalid Channel ID", Status: "$ERROR" });
     }
 
-    const database = await db.connectToDatabase();
+    const database = await connectToDatabase();
     const channelsCollection = database.collection("channels");
 
     const updateFields = {
@@ -147,7 +147,7 @@ const DeleteChannel = async (req, res) => {
         .json({ message: "Invalid Channel ID", Status: "$ERROR" });
     }
 
-    const database = await db.connectToDatabase();
+    const database = await connectToDatabase();
     const channelsCollection = database.collection("channels");
 
     const result = await channelsCollection.deleteOne({
@@ -172,4 +172,4 @@ const DeleteChannel = async (req, res) => {
   }
 };
 
-module.exports = { AddChannels, EditChannel, DeleteChannel };
+export { AddChannels, EditChannel, DeleteChannel };

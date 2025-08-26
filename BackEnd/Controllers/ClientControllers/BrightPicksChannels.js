@@ -1,8 +1,8 @@
-const db = require("../../Database/DBconn");
+import { connectToDatabase } from "../../Database/DBconn.js";
 
 const brightpickschannels = async (req, res) => {
   const { Text, language, level, rating, category } = req.query;
-  const database = await db.connectToDatabase();
+  const database = await connectToDatabase();
   if (!database) {
     return res
       .status(500)
@@ -135,4 +135,4 @@ const brightpickschannels = async (req, res) => {
       .json({ message: "Internal Server Error", Status: "$ERROR" });
   }
 };
-module.exports = brightpickschannels;
+export default brightpickschannels;
