@@ -1,9 +1,14 @@
-import { MongoClient as _MongoClient } from "mongodb";
+import { MongoClient } from "mongodb";
+import dotenv from "dotenv";
+dotenv.config({ quiet: true });
+const DB_URL = process.env.DB_URL || "";
+const DB_NAME = process.env.DB_NAME || "";
 
-const MongoClient = _MongoClient;
-
-const DB_URL = "mongodb://localhost:27017";
-const DB_NAME = "BrightPicks";
+if (!DB_URL || !DB_NAME) {
+  throw new Error(
+    "Database URL or Name is not defined in environment variables"
+  );
+}
 
 let client;
 async function connectToDatabase() {
