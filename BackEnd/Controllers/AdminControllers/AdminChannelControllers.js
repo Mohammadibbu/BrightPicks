@@ -13,6 +13,7 @@ const AddChannels = async (req, res) => {
       level,
       subscribers,
       rating,
+      tags,
       channelDescription,
     } = req.body;
 
@@ -48,6 +49,7 @@ const AddChannels = async (req, res) => {
       level: level || null,
       subscribers: subscribers || 0,
       rating: 0,
+      tags: Array.isArray(tags) ? tags : [],
       description: channelDescription,
       createdAt: new Date(),
     };
@@ -87,6 +89,7 @@ const EditChannel = async (req, res) => {
       level,
       subscribers,
       rating,
+      tags,
       channelDescription,
     } = req.body;
     console.log("Editing channel with ID:", channelId);
@@ -108,6 +111,7 @@ const EditChannel = async (req, res) => {
       ...(level && { level }),
       ...(typeof subscribers === "number" && { subscribers }),
       ...(rating && { rating }),
+      ...(tags && { tags: Array.isArray(tags) ? tags : [] }),
       ...(channelDescription && { description: channelDescription }),
       updatedAt: new Date(),
     };

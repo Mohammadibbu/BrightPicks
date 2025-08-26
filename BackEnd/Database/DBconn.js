@@ -1,7 +1,8 @@
 import { MongoClient } from "mongodb";
 import dotenv from "dotenv";
 dotenv.config({ quiet: true });
-const DB_URL = process.env.DB_URL || "";
+const DB_URL = process.env.DB_LOCAL_URL || "";
+// const DB_URL = process.env.DB_ATLAS_URL || "";
 const DB_NAME = process.env.DB_NAME || "";
 
 if (!DB_URL || !DB_NAME) {
