@@ -1,4 +1,37 @@
 @import "tailwindcss";
-@plugin "daisyui" {
-  themes: false;
+
+@layer components {
+  .footer-link {
+    @apply hover:bg-white/20 backdrop-blur-md  hover:text-gray-100 rounded p-2 transition-colors duration-300;
+  }
+  .btn-primary {
+    @apply relative overflow-hidden bg-gradient-to-r from-blue-600 via-blue-500 to-blue-600 shadow-[0_0_25px_4px_rgba(59,130,246,0.3)] text-white px-4 py-2 rounded-md 
+      hover:bg-blue-700 hover:scale-95 cursor-pointer transition-colors duration-300;
+  }
+  .shimmer-effect {
+    @apply before:content-['']
+      before:absolute 
+      before:top-0 
+      before:left-[-100%] 
+      before:w-full 
+      before:h-full 
+      before:bg-gradient-to-r 
+      before:from-transparent 
+      before:via-white/[15%] 
+      before:to-transparent 
+      before:transition-all 
+      before:duration-500
+      hover:before:left-full;
+  }
+}
+
+body {
+  @apply bg-gradient-to-br from-gray-900 via-gray-800 via-60% to-black backdrop:blur-3xl;
+}
+
+body::-webkit-scrollbar {
+  @apply bg-gray-700 w-1.5;
+}
+body::-webkit-scrollbar-thumb {
+  @apply bg-gray-500 rounded;
 }
