@@ -59,7 +59,7 @@ const Header = () => {
         </ul>
         {/* Search Bar */}
         <div className=" flex-1 mx-4 max-w-xs hidden sm:flex items-center bg-gray-800 border border-gray-600 rounded-md px-3 py-2 focus-within:ring-1 focus-within:ring-blue-500 transition-all duration-300">
-          <FaSearch className="text-gray-300 mr-3" />
+          <FaSearch className="text-gray-300 mr-3 " />
           <input
             type="text"
             id="search"
@@ -133,19 +133,15 @@ const Header = () => {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.6 }}
-            className="md:hidden bg-gray-900/30 backdrop-blur-md shadow-md px-4 pb-4 overflow-hidden"
+            className="md:hidden bg-gray-900/40 backdrop-blur-xl  px-4 pb-4 overflow-hidden"
           >
-            <ul className="flex flex-col gap-3 pt-2">
+            <ul className="flex flex-col gap-5 pt-2 ms-10 ">
               {NavigationBarItems.map((item, index) => (
                 <li key={index}>
                   <Link
                     to={item.path}
-                    className={`block text-gray-100 font-medium transition-colors duration-300
-    ${
-      location.pathname === item.path
-        ? "text-yellow-400"
-        : "hover:text-yellow-600"
-    }
+                    className={`block text-gray-500 font-medium transition-colors duration-300
+    ${location.pathname === item.path ? "text-white" : "hover:text-white"}
   `}
                     onClick={() => setIsOpen(false)}
                   >

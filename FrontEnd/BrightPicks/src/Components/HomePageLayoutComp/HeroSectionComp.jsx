@@ -3,7 +3,7 @@ import { FaBolt } from "react-icons/fa";
 
 const HeroSectionComp = () => {
   return (
-    <div className="max-w-5xl mx-auto text-center mt-30 px-10 sm:px-6 lg:px-8">
+    <div className="max-w-5xl mx-auto text-center mt-30 px-10 sm:px-6 lg:px-8 ">
       <p
         // style={{ fontFamily: "'Tagesschrift', system-ui" }}
         className="bg-amber-100  text-gray-800 font-semibold mb-5 inline-block rounded-full text-[8px] sm:text-xs sm:px-3 sm:py-1 px-2 py-0.5"
@@ -32,8 +32,8 @@ const HeroSectionComp = () => {
         >
           Explore Channels
         </button>
-        <button className="relative shimmer-effect overflow-hidden px-6 py-3 bg-transparent border border-gray-500 hover:border-white text-white font-medium rounded-md transition duration-300">
-          Learn More
+        <button className="relative shimmer-effect overflow-hidden px-6 py-3 bg-transparent border border-gray-500/30 backdrop:blur-3xl  hover:border-white text-white font-medium rounded-md transition duration-300">
+          <span className="bg-glow-green-blue"></span>Learn More
         </button>
       </div>
     </div>

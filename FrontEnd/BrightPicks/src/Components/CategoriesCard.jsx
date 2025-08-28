@@ -51,11 +51,14 @@ const CategoriesCard = ({ Catagory, onExplore }) => {
 
   return (
     <div
-      className="relative p-5 group w-80 sm:w-96 border border-divider 
-  hover:scale-105 hover:shadow-2xl shadow-divider 
-  transition-all duration-300 rounded-2xl mx-5 mt-4 bg-surface overflow-hidden
-  shimmer-effect"
+      className="relative p-5 group w-80 sm:w-96 
+  hover:scale-105 hover:shadow-2xl transition-all duration-300 
+  rounded-2xl mx-5 mt-4 overflow-hidden 
+  bg-gray-900/30 backdrop-blur-md border border-white/10 shadow-lg shimmer-effect"
     >
+      <div className="bg-glow-green-blue"></div>
+      <div className="bg-glow-purple-cyan"></div>
+
       <HiArrowRight
         className="absolute top-5 right-5 text-xl font-extrabold text-white 
     transition-transform duration-500 group-hover:translate-x-10 
@@ -107,8 +110,9 @@ const CategoriesCard = ({ Catagory, onExplore }) => {
   hover:from-accent hover:via-highlight hover:to-primary
   focus:ring-2 focus:outline-none focus:ring-accent
   font-semibold rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 
-  transition-all duration-300 w-full group/button shadow-lg"
+  transition-all duration-300 w-full group/button shadow-lg shimmer-effect"
       >
+        <div className="bg-glow-green-blue"></div>
         <span className="relative z-10">Explore</span>
 
         {/* Animated Arrow */}

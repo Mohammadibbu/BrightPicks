@@ -6,7 +6,10 @@ const Footer = () => {
   const Legal = ["Privacy Policy", "Licensing", "Terms & Conditions"];
 
   return (
-    <footer className="relative bottom-0 bg-gray-900/40 pb-10">
+    <footer className="relative overflow-hidden bottom-0 bg-gray-900/40 pb-10">
+      <div className="bg-glow-green-blue left-[200px]"></div>
+      <div className="bg-glow-white-blue "></div>
+      <div className="bg-glow-purple-cyan"></div>
       <div className="mx-auto w-full max-w-screen-xl">
         <div className="grid grid-cols-2 gap-8 px-4 py-6 lg:py-8 md:grid-cols-4">
           <div>
@@ -55,7 +58,7 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="px-4 py-6 bg-gray-700 md:rounded-2xl md:flex md:items-center md:justify-between">
+        <div className="px-4 py-6 bg-gray-700/20 backdrop-blur-2xl md:rounded-2xl md:flex md:items-center md:justify-between">
           <span className="text-sm text-gray-300 sm:text-center">
             © 2025 <a href="/">BightPicks</a>. All Rights Reserved.
           </span>

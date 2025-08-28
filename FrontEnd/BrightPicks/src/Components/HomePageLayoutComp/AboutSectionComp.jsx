@@ -15,7 +15,9 @@ const AboutSectionComp = () => {
 
       <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {/* Feature 1 */}
-        <div className="relative overflow-hidden bg-gray-900 p-6 rounded-lg shadow-md hover:shadow-xl  transition duration-300 shimmer-effect">
+        <div className="relative overflow-hidden bg-gray-900/30 backdrop-blur-3xl p-6 rounded-lg shadow-md hover:shadow-xl  transition duration-300 shimmer-effect ">
+          <div className="bg-glow-green-blue"></div>{" "}
+          <div className="bg-glow-purple-cyan"></div>
           <div className="text-green-400 text-3xl mb-4">
             <FaBullseye />
           </div>
@@ -30,9 +32,12 @@ const AboutSectionComp = () => {
 
         {/* Feature 2 */}
         <div
-          className="relative overflow-hidden bg-gray-900 p-6 rounded-lg shadow-md hover:shadow-xl  transition duration-300   
+          className="relative overflow-hidden bg-gray-900/30 backdrop-blur-3xl p-6 rounded-2xl shadow-md hover:shadow-xl  transition duration-300   
             shimmer-effect"
         >
+          <div className="bg-glow-green-blue"></div>
+          <div className="bg-glow-purple-cyan"></div>
+
           <div className="text-yellow-400 text-3xl mb-4">
             <FaBolt />
           </div>
@@ -44,7 +49,9 @@ const AboutSectionComp = () => {
         </div>
 
         {/* Feature 3 */}
-        <div className="relative overflow-hidden bg-gray-900 p-6 rounded-lg shadow-md hover:shadow-xl  transition duration-300 shimmer-effect">
+        <div className="relative overflow-hidden bg-gray-900/30 backdrop-blur-3xl p-6 rounded-lg shadow-md hover:shadow-xl  transition duration-300 shimmer-effect">
+          <div className="bg-glow-green-blue"></div>{" "}
+          <div className="bg-glow-purple-cyan"></div>
           <div className="text-blue-400 text-3xl mb-4">
             <FaBook />
           </div>

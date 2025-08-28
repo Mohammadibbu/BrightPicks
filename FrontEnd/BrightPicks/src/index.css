@@ -23,6 +23,17 @@
       before:duration-500
       hover:before:left-full;
   }
+
+  .bg-glow-green-blue {
+    @apply absolute -bottom-10 -right-10 w-60 h-36 bg-gradient-to-tr from-green-400 to-blue-500 rounded-full opacity-20 blur-3xl;
+  }
+  .bg-glow-white-blue {
+    @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-br from-white/10 to-blue-600/40 rounded-full opacity-40 blur-3xl;
+  }
+
+  .bg-glow-purple-cyan {
+    @apply absolute -top-10 -right-10 w-60 h-50 bg-gradient-to-tr from-purple-500 to-cyan-400 rounded-full opacity-25 blur-3xl;
+  }
 }
 
 body {
