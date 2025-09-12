@@ -1,12 +1,10 @@
-import React from "react";
-
 const Footer = () => {
   const Company = ["About", "Browse", "channels"];
   const HelpCenter = ["Facebook", "Contact Us"];
   const Legal = ["Privacy Policy", "Licensing", "Terms & Conditions"];
 
   return (
-    <footer className="relative overflow-hidden bottom-0 bg-gray-900/40 pb-10">
+    <footer className="relative overflow-hidden bottom-0 bg-gradient-to-tr from-blue-900 via-blue-900/50 to-blue-900 pb-10">
       <div className="bg-glow-green-blue left-[200px]"></div>
       <div className="bg-glow-white-blue "></div>
       <div className="bg-glow-purple-cyan"></div>
@@ -58,7 +56,7 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="px-4 py-6 bg-gray-700/20 backdrop-blur-2xl md:rounded-2xl md:flex md:items-center md:justify-between">
+        <div className="px-4 py-6 bg-gray-900/70 backdrop-blur-2xl md:rounded-2xl md:flex md:items-center md:justify-between">
           <span className="text-sm text-gray-300 sm:text-center">
             © 2025 <a href="/">BightPicks</a>. All Rights Reserved.
           </span>

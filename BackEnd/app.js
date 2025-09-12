@@ -1,10 +1,14 @@
 import express, { json } from "express";
-const app = express();
 import cors from "cors";
-const port = process.env.PORT || 5500;
+import dotenv from "dotenv";
 import apiKeyAuth from "./middlewares/Auth.js";
 import clientRouters from "./Routes/ClientRouters.js";
 import adminRouters from "./Routes/AdminRouters.js";
+
+dotenv.config({ quiet: true });
+
+const app = express();
+const port = process.env.PORT || 5500;
 
 app.use(cors());
 app.use(json());

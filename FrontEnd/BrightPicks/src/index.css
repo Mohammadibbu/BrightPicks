@@ -4,6 +4,9 @@
   .footer-link {
     @apply hover:bg-white/20 backdrop-blur-md  hover:text-gray-100 rounded p-2 transition-colors duration-300;
   }
+  .btn {
+    @apply relative overflow-hidden px-4 py-2 rounded-md cursor-pointer transition-colors duration-300;
+  }
   .btn-primary {
     @apply relative overflow-hidden bg-gradient-to-r from-blue-600 via-blue-500 to-blue-600 shadow-[0_0_25px_4px_rgba(59,130,246,0.3)] text-white px-4 py-2 rounded-md 
       hover:bg-blue-700 hover:scale-95 cursor-pointer transition-colors duration-300;

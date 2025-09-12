@@ -1,13 +1,13 @@
 import React from "react";
-import { showToast } from "../Components/ui/Alert";
-import HeroSectionComp from "../Components/HomePageLayoutComp/HeroSectionComp";
-import AboutSectionComp from "../Components/HomePageLayoutComp/AboutSectionComp";
-import PopularCategories from "../Components/HomePageLayoutComp/PopularCategoriesComp";
+import { showToast } from "@components/ui/Alert";
+import HeroSectionComp from "@components/HomePageLayoutComp/HeroSectionComp";
+import AboutSectionComp from "@components/HomePageLayoutComp/AboutSectionComp";
+import PopularCategories from "@components/HomePageLayoutComp/PopularCategoriesComp";
 
 const HomePage = () => {
   return (
     <>
-      <div className="bg-base text-white">
+      <div>
         <HeroSectionComp />
         <div className="my-10 md:my-20 w-40 md:w-[300px] h-0.5 mx-auto rounded-full bg-gradient-to-r from-transparent via-blue-500 to-transparent "></div>
 

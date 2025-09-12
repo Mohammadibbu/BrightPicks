@@ -1,4 +1,5 @@
 import { MongoClient } from "mongodb";
+import mongoose from "mongoose";
 import dotenv from "dotenv";
 dotenv.config({ quiet: true });
 const DB_URL = process.env.DB_LOCAL_URL || "";

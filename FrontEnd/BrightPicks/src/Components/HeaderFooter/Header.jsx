@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import Logo from "../../assets/logo.png";
-import { FaSearch } from "react-icons/fa"; // optional: for icons
+import Logo from "@assets/logo.png";
+import { FaSearch, FaServer } from "react-icons/fa"; // optional: for icons
 import { Link, useLocation } from "react-router-dom";
-import { showToast } from "../ui/Alert";
+import { showToast } from "@components/ui/Alert";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -41,6 +41,7 @@ const Header = () => {
           {NavigationBarItems.map((item, index) => (
             <li key={index}>
               <Link
+                viewTransition
                 to={item.path}
                 className={`relative text-gray-400 px-2 py-1 font-medium transition-colors duration-300 hover:text-gray-100
     before:content-[''] before:absolute before:left-1/2 before:translate-x-[-50%] before:bottom-0 before:h-0.5 before:bg-blue-500
@@ -72,7 +73,7 @@ const Header = () => {
         <div className="flex items-center gap-4 md:gap-3">
           {/* Add resource button */}
           <button
-            className="hidden lg:block btn-primary shimmer-effect"
+            className="hidden lg:block btn-primary shimmer-effect group"
             onClick={() =>
               showToast(
                 "Not Allowed",
@@ -82,7 +83,9 @@ const Header = () => {
               )
             }
           >
-            <span className="relative z-10">Add Resource</span>
+            <span className="relative z-10 ">
+              Add Resource <FaServer className="inline-block ml-2 " />
+            </span>
           </button>
 
           {/* Hamburger */}

@@ -1,11 +1,11 @@
 import {
   axiosInstance as axios,
   handleAxiosError,
-} from "../Axios/AxiosInstance";
-import { showToast } from "../Components/ui/Alert.jsx";
+} from "@utils/Axios/AxiosInstance";
+import { showToast } from "@components/ui/Alert.jsx";
 import { useEffect, useState } from "react";
-import CategoriesCard from "../Components/CategoriesCard.jsx";
-import Skeleton from "../Components/ui/Skeleton.jsx";
+import CategoriesCard from "@components/CategoriesCard.jsx";
+import Skeleton from "@components/ui/Skeleton.jsx";
 const CategoryPage = () => {
   const [CatagoriesData, setCatagoriesData] = useState([]);
   const [loading, setLoading] = useState(true);

@@ -66,7 +66,7 @@ const CategoriesCard = ({ Catagory, onExplore }) => {
         strokeWidth={1.5}
       />
 
-      <div className="text-[40px] text-primary group-hover:text-muted transition-transform duration-300 group-hover:translate-x-4">
+      <div className="text-[40px] text-white group-hover:text-muted transition-transform duration-300 group-hover:translate-x-4">
         {Icon}
       </div>
 
@@ -74,16 +74,16 @@ const CategoriesCard = ({ Catagory, onExplore }) => {
         {categoryName || "Unknown Category"}
       </h2>
 
-      <p className="py-2 text-muted line-clamp-3">{categoryDescription}</p>
+      <p className="py-2 text-white/60 line-clamp-3">{categoryDescription}</p>
 
-      <p className="flex items-center text-muted text-[13px] gap-1 mt-3 mb-3.5">
+      <p className="flex items-center text-white text-[13px] gap-1 mt-3 mb-3.5">
         <FaRegUser className="text-sm" />
         {`${ChannelCount}+ Channels`}
       </p>
 
       {tags.length > 0 ? (
         <div className="flex flex-wrap items-center gap-2 mb-4 mt-3">
-          <LuTags className="text-muted" />
+          <LuTags className="text-white" />
           {tags.slice(0, 4).map((tag) => (
             <span
               key={tag}
