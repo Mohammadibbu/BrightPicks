@@ -1,14 +1,14 @@
-import { Channel } from "../../Database/models/DataModel.js";
-import mongoose from "mongoose";
+import { ChannelModel } from "../../Database/models/DataModel.js";
+// import mongoose from "mongoose";
 const brightpickschannels = async (req, res) => {
   const { Text, language, level, rating, category } = req.query;
-  if (mongoose.connection.readyState !== 1) {
-    throw new Error("Connection not Established");
-  }
+  // if (mongoose.connection.readyState !== 1) {
+  //   throw new Error("Connection not Established");
+  // }
   if (Text) {
     // Handle search query
     try {
-      const channels = await Channel.find({
+      const channels = await ChannelModel.find({
         name: { $regex: Text, $options: "i" },
       });
       if (!channels || channels.length === 0) {
@@ -33,7 +33,7 @@ const brightpickschannels = async (req, res) => {
   if (language) {
     // Handle language query
     try {
-      const channels = await Channel.find({ language: language });
+      const channels = await ChannelModel.find({ language: language });
       if (!channels || channels.length === 0) {
         return res.status(404).json({
           message: "No Result found",
@@ -58,7 +58,7 @@ const brightpickschannels = async (req, res) => {
   if (level) {
     // Handle level query
     try {
-      const channels = await Channel.find({ level: level });
+      const channels = await ChannelModel.find({ level: level });
       if (!channels || channels.length === 0) {
         return res
           .status(404)
@@ -79,7 +79,7 @@ const brightpickschannels = async (req, res) => {
   if (category) {
     // Handle category query
     try {
-      const channels = await Channel.find({ category: category });
+      const channels = await ChannelModel.find({ category: category });
       if (!channels || channels.length === 0) {
         return res.status(404).json({
           message: "No Result found",
@@ -103,7 +103,7 @@ const brightpickschannels = async (req, res) => {
 
   // If no specific query parameters are provided, return all channels
   try {
-    const channels = await Channel.find({});
+    const channels = await ChannelModel.find({});
     if (!channels || channels.length === 0) {
       return res
         .status(404)

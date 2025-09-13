@@ -65,7 +65,7 @@ const ChannelSchema = new mongoose.Schema(
   }
 );
 
-const Channel = mongoose.model("channels", ChannelSchema);
+const ChannelModel = mongoose.model("channels", ChannelSchema);
 const CategoryModel = mongoose.model("categories", CategorySchema);
 
-export { CategoryModel, Channel };
+export { CategoryModel, ChannelModel };

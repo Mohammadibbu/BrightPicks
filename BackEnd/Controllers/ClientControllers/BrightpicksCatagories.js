@@ -1,10 +1,10 @@
 import { CategoryModel } from "../../Database/models/DataModel.js";
-import mongoose from "mongoose";
+// import mongoose from "mongoose";
 const brightpickscatagories = async (req, res) => {
   try {
-    if (mongoose.connection.readyState !== 1) {
-      throw new Error("Connection not Established");
-    }
+    // if (mongoose.connection.readyState !== 1) {
+    //   throw new Error("Connection not Established");
+    // }
     const categories = await CategoryModel.find({});
 
     if (!categories || categories.length === 0) {

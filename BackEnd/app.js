@@ -1,7 +1,7 @@
 import express, { json } from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import apiKeyAuth from "./middlewares/Auth.js";
+import apiKeyAuth from "./middlewares/ApiAuth.js";
 import clientRouters from "./Routes/ClientRouters.js";
 import adminRouters from "./Routes/AdminRouters.js";
 import { connectToDatabase, closeConnection } from "./Database/DBconn.js";
@@ -25,9 +25,5 @@ app.use("/", clientRouters);
 app.use("/", adminRouters);
 
 app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-
-  console.log(
-    `http://localhost:${port}/brightpicks/catagories to fetch categories`
-  );
+  console.log(`Server is running on port http://localhost:${port}`);
 });

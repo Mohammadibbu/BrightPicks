@@ -1,4 +1,4 @@
-import { Channel } from "../../Database/models/DataModel.js";
+import { ChannelModel } from "../../Database/models/DataModel.js";
 import mongoose from "mongoose";
 
 // Add Channel
@@ -25,7 +25,7 @@ const AddChannels = async (req, res) => {
     }
 
     // Check if a channel with the same youtubeUrl already exists
-    const existingChannel = await Channel.findOne({ youtubeUrl });
+    const existingChannel = await ChannelModel.findOne({ youtubeUrl });
     if (existingChannel) {
       return res.status(409).json({
         message: "Channel with this YouTube URL already exists",
@@ -34,7 +34,7 @@ const AddChannels = async (req, res) => {
       });
     }
 
-    const newChannel = new Channel({
+    const newChannel = new ChannelModel({
       name: channelName,
       youtubeUrl,
       category,
@@ -94,10 +94,9 @@ const EditChannel = async (req, res) => {
       ...(typeof rating === "number" && { rating }),
       ...(tags && { tags: Array.isArray(tags) ? tags : [] }),
       ...(channelDescription && { description: channelDescription }),
-      updatedAt: new Date(),
     };
 
-    const updatedChannel = await Channel.findByIdAndUpdate(
+    const updatedChannel = await ChannelModel.findByIdAndUpdate(
       channelId,
       { $set: updateFields },
       { new: true }
@@ -133,7 +132,7 @@ const DeleteChannel = async (req, res) => {
         .json({ message: "Invalid Channel ID", Status: "$ERROR" });
     }
 
-    const deletedChannel = await Channel.findByIdAndDelete(channelId);
+    const deletedChannel = await ChannelModel.findByIdAndDelete(channelId);
 
     if (!deletedChannel) {
       return res

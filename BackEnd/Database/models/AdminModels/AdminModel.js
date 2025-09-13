@@ -21,6 +21,10 @@ const AdminSchema = new mongoose.Schema(
       enum: ["admin", "superadmin", "moderator"],
       default: "admin",
     },
+    suspended: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     timestamps: true,

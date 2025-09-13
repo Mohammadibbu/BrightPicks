@@ -12,6 +12,14 @@ const addCategoryEndpoint = "/brightpicks/admin/category/addcategory";
 const editCategoryEndpoint = "/brightpicks/admin/category/p/:categoryId";
 const deleteCategoryEndpoint = "/brightpicks/admin/category/d/:categoryId";
 
+//Add admin
+const AddadminEndPoint = "/brightpicks/admin/addAdmin";
+//DeleteAdmin
+const DeleteAdminEndPoint = "/brightpicks/admin/d/:AdminId";
+//Edit Admin Role
+
+const EditAdminRole = "/brightpicks/admin/p/:AdminId";
+
 //=========================CLIENT ENDPOINTS====================================
 
 // Categories
@@ -27,6 +35,7 @@ const brightPicksChannelsRatingEndpoint = "/brightpicks/channels/:rating";
 
 //=========================ADMIN ENDPOINTS====================================
 const adminEndPoints = {
+  // AdminLogin EP
   adminLoginEndpoint,
   addChannelEndpoint,
   editChannelEndpoint,
@@ -34,6 +43,11 @@ const adminEndPoints = {
   addCategoryEndpoint,
   editCategoryEndpoint,
   deleteCategoryEndpoint,
+  //add admin EP
+  AddadminEndPoint,
+  DeleteAdminEndPoint,
+  //edit admin Role
+  EditAdminRole,
 };
 
 //=========================CLIENT ENDPOINTS====================================
