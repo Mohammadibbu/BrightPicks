@@ -1,6 +1,7 @@
+// Router.js
 import { Router } from "express";
 const router = Router();
-
+import { adminEndPoints as adminRoutes } from "../utils/EndPoints.js"; // Import the endpoints from Endpoint.js
 import AdminLogin from "../Controllers/AdminControllers/AdminLogin.js";
 import {
   AddChannels,
@@ -13,32 +14,32 @@ import {
   EditCategory,
   DeleteCategory,
 } from "../Controllers/AdminControllers/AdminCatagoriesController.js";
-// ----------------------------GET METHODS----------------------------
 
-//-----------------------------POST METHODS----------------------------
+// ----------------------------POST METHODS----------------------------
 
 // login to admin panel
-router.post("/brightpicks/admin/login", AdminLogin);
+router.post(adminRoutes.adminLoginEndpoint, AdminLogin);
 
 // Add a new channel
-router.post("/brightpicks/admin/channel/addchannel", AddChannels);
-//Add a new category
-router.post("/brightpicks/admin/category/addcategory", AddCategory);
+router.post(adminRoutes.addChannelEndpoint, AddChannels);
 
-//-----------------------------PUT METHODS----------------------------
+// Add a new category
+router.post(adminRoutes.addCategoryEndpoint, AddCategory);
 
-//Edit a channel
-router.put("/brightpicks/admin/channel/p/:channelId", EditChannel);
+// -----------------------------PUT METHODS----------------------------
+
+// Edit a channel
+router.put(adminRoutes.editChannelEndpoint, EditChannel);
 
 // Edit a category
-router.put("/brightpicks/admin/category/p/:categoryId", EditCategory);
+router.put(adminRoutes.editCategoryEndpoint, EditCategory);
 
-// ----------------------------DELETE METHODS-----------------------------
+// ----------------------------DELETE METHODS----------------------------
 
-//delete a channel
-router.delete("/brightpicks/admin/channel/d/:channelId", DeleteChannel);
+// delete a channel
+router.delete(adminRoutes.deleteChannelEndpoint, DeleteChannel);
 
 // Delete a category
-router.delete("/brightpicks/admin/category/d/:categoryId", DeleteCategory);
+router.delete(adminRoutes.deleteCategoryEndpoint, DeleteCategory);
 
 export default router;

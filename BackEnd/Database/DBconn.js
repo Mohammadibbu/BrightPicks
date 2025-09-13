@@ -1,4 +1,3 @@
-import { MongoClient } from "mongodb";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 dotenv.config({ quiet: true });
@@ -11,27 +10,25 @@ if (!DB_URL || !DB_NAME) {
     "Database URL or Name is not defined in environment variables"
   );
 }
+const ConnectionString = `${DB_URL}${DB_NAME}`;
 
-let client;
-async function connectToDatabase() {
-  if (!client) {
-    client = await MongoClient.connect(DB_URL);
+const connectToDatabase = async () => {
+  try {
+    const conn = await mongoose.connect(ConnectionString);
+    console.log("Database connected:", conn.connection.host);
+    return conn;
+  } catch (e) {
+    console.error("Database connection failed:", e);
+    return e;
   }
-
-  const db = client.db(DB_NAME);
-  if (!db) {
-    throw new Error("Database connection failed");
+};
+const closeConnection = async () => {
+  try {
+    await mongoose.disconnect();
+    console.log("Database connection closed");
+  } catch (e) {
+    console.error("Error while closing connection:", e);
   }
-
-  return db;
-}
-
-async function closeConnection() {
-  if (client) {
-    await client.close();
-    client = null;
-    console.log("MongoDB connection closed");
-  }
-}
+};
 
 export { connectToDatabase, closeConnection };

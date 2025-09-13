@@ -4,8 +4,13 @@ import dotenv from "dotenv";
 import apiKeyAuth from "./middlewares/Auth.js";
 import clientRouters from "./Routes/ClientRouters.js";
 import adminRouters from "./Routes/AdminRouters.js";
-
+import { connectToDatabase, closeConnection } from "./Database/DBconn.js";
 dotenv.config({ quiet: true });
+
+const DBCONN = await connectToDatabase();
+if (DBCONN) {
+  console.log("DB connected Succesfully...");
+}
 
 const app = express();
 const port = process.env.PORT || 5500;

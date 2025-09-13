@@ -1,28 +1,38 @@
+// ClientRoutes.js
 import { Router } from "express";
 const router = Router();
+import { clientEndPoints as clientRoutes } from "../utils/EndPoints.js"; // Import the client endpoints
 import brightPicksCategories from "../Controllers/ClientControllers/BrightpicksCatagories.js";
 import brightPicksChannels from "../Controllers/ClientControllers/BrightPicksChannels.js";
 
 // ----------------------------GET METHODS----------------------------
 
-// CATAGORIES
+// Categories
+router.get(clientRoutes.brightPicksCategoriesEndpoint, brightPicksCategories);
 
-router.get("/brightpicks/categories", brightPicksCategories);
+// Channels
+router.get(clientRoutes.brightPicksChannelsEndpoint, brightPicksChannels);
 
-// CHANNELS
+// Channels by Search
+router.get(clientRoutes.brightPicksChannelsSearchEndpoint, brightPicksChannels);
 
-router.get("/brightpicks/channels", brightPicksChannels);
+// Channels by Language
+router.get(
+  clientRoutes.brightPicksChannelsLanguageEndpoint,
+  brightPicksChannels
+);
 
-// CHANNELS BY SEARCH
-router.get("/brightpicks/channels/:search", brightPicksChannels);
-// CHANNELS BY LANGUAGE
-router.get("/brightpicks/channels/:language", brightPicksChannels);
-// CHANNELS BY TYPE
-router.get("/brightpicks/channels/:level", brightPicksChannels);
-// CHANNELS BY CATEGORY
-router.get("/brightpicks/channels/:category", brightPicksChannels);
-// CHANNELS BY RATING
-router.get("/brightpicks/channels/:rating", brightPicksChannels);
+// Channels by Level
+router.get(clientRoutes.brightPicksChannelsLevelEndpoint, brightPicksChannels);
+
+// Channels by Category
+router.get(
+  clientRoutes.brightPicksChannelsCategoryEndpoint,
+  brightPicksChannels
+);
+
+// Channels by Rating
+router.get(clientRoutes.brightPicksChannelsRatingEndpoint, brightPicksChannels);
 
 //-----------------------------POST METHODS----------------------------
 

@@ -1,8 +1,7 @@
-import { connectToDatabase } from "../../Database/DBconn.js";
-import { ObjectId } from "mongodb";
+import { Channel } from "../../Database/models/DataModel.js";
+import mongoose from "mongoose";
 
-//Add Channel
-
+// Add Channel
 const AddChannels = async (req, res) => {
   try {
     const {
@@ -17,7 +16,6 @@ const AddChannels = async (req, res) => {
       channelDescription,
     } = req.body;
 
-    // Required fields validation
     if (!channelName || !channelDescription || !youtubeUrl || !category) {
       return res.status(400).json({
         message:
@@ -26,13 +24,8 @@ const AddChannels = async (req, res) => {
       });
     }
 
-    const database = await connectToDatabase();
-
     // Check if a channel with the same youtubeUrl already exists
-    const existingChannel = await database
-      .collection("channels")
-      .findOne({ youtubeUrl: youtubeUrl });
-
+    const existingChannel = await Channel.findOne({ youtubeUrl });
     if (existingChannel) {
       return res.status(409).json({
         message: "Channel with this YouTube URL already exists",
@@ -41,10 +34,10 @@ const AddChannels = async (req, res) => {
       });
     }
 
-    const newChannel = {
+    const newChannel = new Channel({
       name: channelName,
-      youtubeUrl: youtubeUrl,
-      category: category,
+      youtubeUrl,
+      category,
       language: language || null,
       level: level || null,
       subscribers: subscribers || 0,
@@ -52,21 +45,14 @@ const AddChannels = async (req, res) => {
       tags: Array.isArray(tags) ? tags : [],
       description: channelDescription,
       createdAt: new Date(),
-    };
+    });
 
-    const result = await database.collection("channels").insertOne(newChannel);
-    // console.log(result);
-
-    if (!result.acknowledged || !result.insertedId) {
-      return res
-        .status(500)
-        .json({ message: "Failed to add channel", Status: "$ERROR" });
-    }
+    const savedChannel = await newChannel.save();
 
     res.status(201).json({
       message: "Channel added successfully",
       Status: "$SUCCESS",
-      channelId: result.insertedId,
+      channelId: savedChannel._id,
     });
   } catch (error) {
     console.error("Error adding channel:", error);
@@ -76,8 +62,7 @@ const AddChannels = async (req, res) => {
   }
 };
 
-//Edit Channel
-
+// Edit Channel
 const EditChannel = async (req, res) => {
   try {
     const { channelId } = req.params;
@@ -92,16 +77,12 @@ const EditChannel = async (req, res) => {
       tags,
       channelDescription,
     } = req.body;
-    console.log("Editing channel with ID:", channelId);
 
-    if (!ObjectId.isValid(channelId)) {
+    if (!mongoose.Types.ObjectId.isValid(channelId)) {
       return res
         .status(400)
         .json({ message: "Invalid Channel ID", Status: "$ERROR" });
     }
-
-    const database = await connectToDatabase();
-    const channelsCollection = database.collection("channels");
 
     const updateFields = {
       ...(channelName && { name: channelName }),
@@ -110,27 +91,29 @@ const EditChannel = async (req, res) => {
       ...(language && { language }),
       ...(level && { level }),
       ...(typeof subscribers === "number" && { subscribers }),
-      ...(rating && { rating }),
+      ...(typeof rating === "number" && { rating }),
       ...(tags && { tags: Array.isArray(tags) ? tags : [] }),
       ...(channelDescription && { description: channelDescription }),
       updatedAt: new Date(),
     };
 
-    const result = await channelsCollection.updateOne(
-      { _id: new ObjectId(channelId) },
-      { $set: updateFields }
+    const updatedChannel = await Channel.findByIdAndUpdate(
+      channelId,
+      { $set: updateFields },
+      { new: true }
     );
 
-    if (result.matchedCount === 0) {
+    if (!updatedChannel) {
       return res.status(404).json({
-        message: "Channel not found, No updates Done",
+        message: "Channel not found, No updates done",
         Status: "$ERROR",
       });
     }
 
-    res
-      .status(200)
-      .json({ message: "Channel updated successfully", Status: "$SUCCESS" });
+    res.status(200).json({
+      message: "Channel updated successfully",
+      Status: "$SUCCESS",
+    });
   } catch (error) {
     console.error("Error updating channel:", error);
     res
@@ -139,35 +122,29 @@ const EditChannel = async (req, res) => {
   }
 };
 
-//Delete Channel
-
+// Delete Channel
 const DeleteChannel = async (req, res) => {
   try {
     const { channelId } = req.params;
-    // console.log("Deleting channel with ID:", channelId);
-    if (!ObjectId.isValid(channelId)) {
+
+    if (!mongoose.Types.ObjectId.isValid(channelId)) {
       return res
         .status(400)
         .json({ message: "Invalid Channel ID", Status: "$ERROR" });
     }
 
-    const database = await connectToDatabase();
-    const channelsCollection = database.collection("channels");
+    const deletedChannel = await Channel.findByIdAndDelete(channelId);
 
-    const result = await channelsCollection.deleteOne({
-      _id: new ObjectId(channelId),
-    });
-    // console.log("Delete result:", result);
-
-    if (result.deletedCount === 0) {
+    if (!deletedChannel) {
       return res
         .status(404)
         .json({ message: "Channel not found", Status: "$ERROR" });
     }
 
-    res
-      .status(200)
-      .json({ message: "Channel deleted successfully", Status: "$SUCCESS" });
+    res.status(200).json({
+      message: "Channel deleted successfully",
+      Status: "$SUCCESS",
+    });
   } catch (error) {
     console.error("Error deleting channel:", error);
     res

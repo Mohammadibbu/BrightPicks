@@ -1,12 +1,11 @@
-import { connectToDatabase } from "../../Database/DBconn.js";
-import { ObjectId } from "mongodb";
+import mongoose from "mongoose";
+import { CategoryModel } from "../../Database/models/DataModel.js";
 
-// Function to add a new category
+// Add Category
 const AddCategory = async (req, res) => {
   try {
     const { categoryName, categoryDescription, tags } = req.body;
 
-    // Required fields validation
     if (!categoryName || !categoryDescription) {
       return res.status(400).json({
         message: "Category name and description are required",
@@ -14,12 +13,7 @@ const AddCategory = async (req, res) => {
       });
     }
 
-    const database = await connectToDatabase();
-
-    // Check if a category with the same name already exists
-    const existingCategory = await database
-      .collection("categories")
-      .findOne({ category: categoryName });
+    const existingCategory = await CategoryModel.findOne({ categoryName });
 
     if (existingCategory) {
       return res.status(409).json({
@@ -29,27 +23,26 @@ const AddCategory = async (req, res) => {
       });
     }
 
-    const newCategory = {
-      category: categoryName,
-      description: categoryDescription,
-      tags: tags || [],
+    const newCategory = new CategoryModel({
+      categoryName,
+      categoryDescription,
+      tags: Array.isArray(tags) ? tags : [],
       createdAt: new Date(),
-    };
+    });
 
-    const result = await database
-      .collection("categories")
-      .insertOne(newCategory);
+    const result = await newCategory.save();
 
-    if (!result.acknowledged || !result.insertedId) {
-      return res
-        .status(500)
-        .json({ message: "Failed to add category", Status: "$ERROR" });
+    if (!result) {
+      return res.status(500).json({
+        message: "Failed to add category",
+        Status: "$ERROR",
+      });
     }
 
     res.status(201).json({
       message: "Category added successfully",
       Status: "$SUCCESS",
-      categoryId: result.insertedId,
+      categoryId: result._id,
     });
   } catch (error) {
     console.error("Error adding category:", error);
@@ -59,60 +52,58 @@ const AddCategory = async (req, res) => {
   }
 };
 
-//Edit Category
+// Edit Category
 const EditCategory = async (req, res) => {
   try {
     const { categoryId } = req.params;
     const { categoryName, categoryDescription, tags } = req.body;
 
-    if (!categoryName && !categoryDescription && !tags) {
-      return res.status(400).json({
-        message: "Atleast one field is required for update",
-        Status: "$INFO",
-      });
-    }
-    // Required fields validation
-    if (!ObjectId.isValid(categoryId)) {
+    if (!mongoose.Types.ObjectId.isValid(categoryId)) {
       return res.status(400).json({
         message: "Invalid category ID",
         Status: "$ERROR",
       });
     }
 
-    const database = await connectToDatabase();
-    // Check if the category exists
-    const existingCategory = await database
-      .collection("categories")
-      .findOne({ _id: new ObjectId(categoryId) });
+    if (!categoryName && !categoryDescription && !tags) {
+      return res.status(400).json({
+        message: "At least one field is required for update",
+        Status: "$INFO",
+      });
+    }
+
+    const existingCategory = await CategoryModel.findById(categoryId);
     if (!existingCategory) {
       return res.status(404).json({
         message: "Category not found",
         Status: "$ERROR",
       });
     }
-    // Update the category
+
     const updatedCategory = {
-      ...(categoryName && { category: categoryName }),
-      ...(categoryDescription && { description: categoryDescription }),
-      ...(tags && { tags }),
+      ...(categoryName && { categoryName }),
+      ...(categoryDescription && { categoryDescription }),
+      ...(tags && { tags: Array.isArray(tags) ? tags : [] }),
       updatedAt: new Date(),
     };
 
-    // console.log("Updating category with ID:", updatedCategory);
+    const result = await CategoryModel.findByIdAndUpdate(
+      categoryId,
+      { $set: updatedCategory },
+      { new: true }
+    );
 
-    const result = await database
-      .collection("categories")
-      .updateOne({ _id: new ObjectId(categoryId) }, { $set: updatedCategory });
-    if (result.modifiedCount === 0) {
+    if (!result) {
       return res.status(500).json({
         message: "Failed to update category",
         Status: "$ERROR",
       });
     }
+
     res.status(200).json({
       message: "Category updated successfully",
       Status: "$SUCCESS",
-      categoryId: categoryId,
+      categoryId: result._id,
     });
   } catch (error) {
     console.error("Error updating category:", error);
@@ -122,43 +113,39 @@ const EditCategory = async (req, res) => {
   }
 };
 
-//Delete Category
-
+// Delete Category
 const DeleteCategory = async (req, res) => {
   try {
     const { categoryId } = req.params;
-    // Required fields validation
-    if (!ObjectId.isValid(categoryId)) {
+
+    if (!mongoose.Types.ObjectId.isValid(categoryId)) {
       return res.status(400).json({
         message: "Invalid category ID",
         Status: "$ERROR",
       });
     }
-    const database = await connectToDatabase();
-    // Check if the category exists
-    const existingCategory = await database
-      .collection("categories")
-      .findOne({ _id: new ObjectId(categoryId) });
+
+    const existingCategory = await CategoryModel.findById(categoryId);
     if (!existingCategory) {
       return res.status(404).json({
         message: "Category not found",
         Status: "$ERROR",
       });
     }
-    // Delete the category
-    const result = await database
-      .collection("categories")
-      .deleteOne({ _id: new ObjectId(categoryId) });
-    if (result.deletedCount === 0) {
+
+    const result = await CategoryModel.findByIdAndDelete(categoryId);
+
+    if (!result) {
       return res.status(500).json({
         message: "Failed to delete category",
         Status: "$ERROR",
       });
     }
+
     res.status(200).json({
       message: "Category deleted successfully",
       Status: "$SUCCESS",
-      categoryId: categoryId,
+      categoryId: result._id,
     });
   } catch (error) {
     console.error("Error deleting category:", error);

@@ -1,14 +1,11 @@
-import { connectToDatabase } from "../../Database/DBconn.js";
-
+import { CategoryModel } from "../../Database/models/DataModel.js";
+import mongoose from "mongoose";
 const brightpickscatagories = async (req, res) => {
   try {
-    const database = await connectToDatabase();
-    console.log("Connected to database successfully");
-
-    const categories = await database
-      .collection("categories")
-      .find({})
-      .toArray();
+    if (mongoose.connection.readyState !== 1) {
+      throw new Error("Connection not Established");
+    }
+    const categories = await CategoryModel.find({});
 
     if (!categories || categories.length === 0) {
       return res

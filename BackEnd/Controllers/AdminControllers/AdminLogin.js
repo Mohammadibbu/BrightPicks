@@ -1,4 +1,4 @@
-import { connectToDatabase } from "../../Database/DBconn.js";
+import { AdminModel } from "../../Database/models/AdminModels/AdminModel.js";
 
 const AdminLogin = async (req, res) => {
   try {
@@ -11,14 +11,13 @@ const AdminLogin = async (req, res) => {
       });
     }
 
-    const database = await connectToDatabase();
+    const admin = await AdminModel.findOne({
+      username,
+      password,
+    });
 
-    const admin = await database
-      .collection("Admin_Credentials")
-      .findOne({ username: username, password: password });
-
-    // console.log("Admin credentials checked:", { username, password });
-    // console.log("admin:", admin);
+    console.log("Admin credentials checked:", { username, password });
+    console.log("admin:", admin);
 
     if (!admin) {
       return res
