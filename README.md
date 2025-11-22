@@ -30,8 +30,8 @@ Channels are tagged by topic, skill level, and language to match your learning g
 - 💻 **Programming**
 
   - Web Development (HTML, CSS, JS, React, etc.)
-  - Backend (Node.js, Django, Go, etc.)
-  - DevOps & Cloud (AWS, Docker, Kubernetes)
+  - Backend (Node.js, MongoDb)
+  -RestAPi(PUT,DELETE,GET,POST)
 
 - 🛠️ **Engineering & Tech**
 
@@ -95,7 +95,7 @@ See [`CONTRIBUTING.md`](CONTRIBUTING.md) for more details.
 <!-- ## 📬 Contact
 
 Have a suggestion, question, or partnership idea?
-Reach us at: [brightpicks.contact@example.com]
+Reach us at: [mohammadibbu008@gmail.com]
 
 --- -->
 
